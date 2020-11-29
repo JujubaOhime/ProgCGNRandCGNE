@@ -1,7 +1,58 @@
-def multiplica(vaa, vja, via, outroVetor):
-    pass
+class CSR:
+    def __init__(self, vaa, vja, via, linhas, colunas):
+        self.vaa = vaa
+        self.vja = vja
+        self.via = via
+        self.linhas = linhas
+        self.colunas = colunas
 
-def acha_linha_coluna_de_elemento(posicao,vaa, vja, via):
+    def __str__(self):
+        return '{{\n\tvaa: {0}\n\tvja: {1}\n\tvia: {2}\n\tlinhas: {3}\n\tcolunas: {4}\n}}'.format(self.vaa, self.vja, self.via, self.linhas, self.colunas)
+    
+    def multiplica(self, outroVetor):
+        pass
+
+    def acha_linha_coluna_de_elemento(self, posicao):
+        final = []
+        linha = 0
+        coluna = 0
+        for j in range(len(self.via) -1, -1, -1):
+            if self.via[j]<=posicao:
+                linha = j
+                break
+
+        coluna = vja[posicao]
+        final.append(linha)
+        final.append(coluna)
+        return final
+
+    def transposta(self):
+        new_vaa = []
+        new_vja = []
+        new_via = []
+        posicoes = []
+
+        for i in range(len(self.vaa)):
+            posicoes.append(self.acha_linha_coluna_de_elemento(i)) 
+
+        somatorio = 0
+        for i in range(self.linhas):
+            menor = 0
+            for j in range(self.colunas):
+
+                if [j, i] in posicoes:
+                    new_vaa.append(self.vaa[posicoes.index([j, i])])
+                    new_vja.append(j)
+                    if (menor == 0):
+                        new_via.append(somatorio)
+                    somatorio = somatorio + 1
+                    menor = menor + 1
+
+        resposta = CSR(new_vaa, new_vja, new_via, self.linhas, self.colunas)
+        return(resposta)
+    
+
+'''def acha_linha_coluna_de_elemento(posicao,vaa, vja, via):
     final = []
     linha = 0
     coluna = 0
@@ -78,18 +129,21 @@ def soma(vaa, vja, via, vaa2, vja2, via2, n_linha, n_coluna):
                 somatorio = somatorio + 1
                 menor = menor + 1
 
-
+'''
     
 
 b = [7, 2.5, 6.002]
 
-vaa = [10, -7, 2.5, 5, 6.002]
-vja = [0, 1, 1, 2, 2]
-via = [0, 2, 4]
+vaa = [10, -7, 3, 2.5, 5, 6.002]
+vja = [0, 1, 2, 1, 2, 2]
+via = [0, 3, 5]
+
 n_linha = 3
 n_coluna = 3
+matriz = CSR(vaa, vja, via, n_linha, n_coluna)
 x0 = ['x1', 'x2', 'x3']
 
-print(transposta(vaa, vja, via, n_linha, n_coluna))
+print(matriz)
+print(matriz.transposta())
 
 

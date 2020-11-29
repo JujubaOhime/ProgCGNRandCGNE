@@ -21,17 +21,16 @@ def transposta(vaa, vja, via, n_linha, n_coluna):
     new_vja = []
     new_via = []
     posicoes = []
+
     for i in range(len(vaa)):
         posicoes.append(acha_linha_coluna_de_elemento(i,vaa, vja, via)) 
 
-    print(posicoes)
     somatorio = 0
     for i in range(n_linha):
         menor = 0
         for j in range(n_coluna):
+
             if [j, i] in posicoes:
-                print(posicoes.index([j, i]))
-                print(vaa[posicoes.index([j, i])])
                 new_vaa.append(vaa[posicoes.index([j, i])])
                 new_vja.append(j)
                 if (menor == 0):
@@ -44,6 +43,41 @@ def transposta(vaa, vja, via, n_linha, n_coluna):
     res.append(new_vja)
     res.append(new_via)
     return(res)
+
+def soma(vaa, vja, via, vaa2, vja2, via2, n_linha, n_coluna):
+    new_vaa = []
+    new_vja = []
+    new_via = []
+    posicoes = []
+    posicoes2 = []
+
+    for i in range(len(vaa)):
+        posicoes.append(acha_linha_coluna_de_elemento(i,vaa, vja, via))
+    
+    for i in range(len(vaa2)):
+        posicoes2.append(acha_linha_coluna_de_elemento(i,vaa2, vja2, via2))
+
+    somatorio = 0
+    for i in range(n_linha):
+        menor = 0
+        for j in range(n_coluna):
+
+            if ([i, j] in posicoes) or ([i,j] in posicoes2):
+                soma = 0
+
+                if([i,j] in posicoes):
+                    soma = soma + vaa[posicoes.index([i, j])]
+
+                if([i,j] in posicoes2):
+                    soma = soma + vaa[posicoes2.index([i, j])]
+                
+                new_vaa.append(soma)
+                new_vja.append(i)
+                if (menor == 0):
+                    new_via.append(somatorio)
+                somatorio = somatorio + 1
+                menor = menor + 1
+
 
     
 

@@ -1,4 +1,15 @@
-def multiplica(vaa, vja, via, outroVetor):
+class CSR:
+    def __init__(self, vaa, vja, via, linhas, colunas):
+        self.vaa = vaa
+        self.vja = vja
+        self.via = via
+        self.linhas = linhas
+        self.colunas = colunas
+
+    def __str__(self):
+        return '{{\n\tvaa: {0}\n\tvja: {1}\n\tvia: {2}\n\tlinhas: {3}\n\tcolunas: {4}\n}}'.format(self.vaa, self.vja, self.via, self.linhas, self.colunas)
+    
+    def multiplica(self, outroVetor):
     pass
 
 def acha_linha_coluna_de_elemento(posicao,vaa, vja, via):

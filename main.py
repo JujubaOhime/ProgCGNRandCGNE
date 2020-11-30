@@ -25,7 +25,6 @@ class CSR:
         coluna = self.vja[posicao]
         final.append(linha)
         final.append(coluna)
-        print(final)
         return final
 
     def transposta(self):
@@ -66,8 +65,6 @@ class CSR:
         for i in range(len(matriz.vaa)):
             posicoes2.append(matriz.acha_linha_coluna_de_elemento(i))
 
-        print(posicoes)
-        print(posicoes2)
         somatorio = 0
         for i in range(self.linhas):
             menor = 0

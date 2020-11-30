@@ -180,29 +180,36 @@ class CSR:
     def convergiu(self, elem):
         return True
 
-    # TODO 
-    def norma(self):
-        soma = 0
-        for i in range(len(self.vaa)):
-            soma = soma + abs(self.vaa[i])
-
-        return soma
-
-        
-
-    # TODO
-    def normaEuclidiana(self):
-        soma = 0
-        for i in range(len(self.vaa)):
-            soma = soma + (self.vaa[i] * self.vaa[i])
-
-        return math.sqrt(soma)
-        
-    def produtoInternoMesmoValor(self):
-        res = norma(self) * norma(self)
-        return res
 
 
+# TODO 
+def norma(vetor):
+    soma = 0
+    for i in range(len(vetor)):
+        soma = soma + abs(vetor)
+
+    return soma
+
+    
+
+# TODO
+def normaEuclidiana(vetor):
+    soma = 0
+    for i in range(len(vetor)):
+        soma = soma + (vetor[i] * vetor[i])
+
+    return math.sqrt(soma)
+    
+def produtoInternoMesmoValor(vetor):
+    res = norma(vetor) * norma(vetor)
+    return res
+
+def multriplicaoEscalarVetor(vetor, escalar):
+    res = []
+    for i in range(len(vetor))
+        res.append(vetor[i]*escalar)
+
+    return res
 
     # TODO 
     def cgnr(self, b):
@@ -236,7 +243,28 @@ class CSR:
 
     # TODO 
     def cgne(self, b):
-        return 0
+        r = []
+        x = []
+        beta = []
+        p = []
+        linha = []
+        alfa = []
+
+        for i in range len(self.linhas):
+            x = 'x' + srt(i)
+            linha.append(x)
+
+        x.append(linha)
+        
+        r.append(b - self.multiplica(x[0]))
+        p.append(self.transposta().multiplica(r[0]))
+        i = 0
+        while(not(convergiu())):
+            alfa.append( (produtoInternoMesmoValor(r[i]) / produtoInternoMesmoValor(p[i]) ))
+            x.append(x[i] + multriplicaoEscalarVetor(p[i], alfa[i]))
+            r.append( r[i] - multriplicaoEscalarVetor(self.multiplica(p[i]) ))
+            beta.append((produtoInternoMesmoValor(r[i+1]) / produtoInternoMesmoValor(r[i]) ))
+            p.append(self.transposta(#TODO))
 
 
 b = [7, 2.5, 6.002]

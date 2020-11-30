@@ -154,6 +154,25 @@ class CSR:
             posicoes2.append(matriz.acha_linha_coluna_de_elemento(i))
 
         somatorio = 0
+        for i in range(self.linhas):
+            menor = 0
+            for j in range(matriz.colunas):
+                soma = 0
+                for k in range(self.colunas):
+                    
+                    if ([i,k] in posicoes) and ([k,j] in posicoes2):
+                        soma = soma + (matriz.vaa[posicoes2.index([k, j])] * self.vaa[posicoes.index([i, k])]) 
+
+                if (soma != 0):
+                    new_vaa.append(soma)
+                    new_vja.append(j)
+                    if (menor == 0):
+                        new_via.append(somatorio)
+                    somatorio = somatorio + 1
+                    menor = menor + 1
+
+        res = CSR(new_vaa, new_vja, new_via, self.linhas, matriz.colunas)
+        return(res)   
 
         
     
@@ -176,5 +195,6 @@ b = CSR([1, 7, 3, 5, 9], [0,2,1,2,1], [0, 2, 4], 3, 3)
 print(a.soma(b))
 print(a.subtracao(b))
 print(b.subtracao(a))
+print(a.multiplicaMatriz(b))
 
 

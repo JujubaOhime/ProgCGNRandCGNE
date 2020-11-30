@@ -1,5 +1,35 @@
 import math  
 
+# TODO 
+def norma(vetor):
+    soma = 0
+    for i in range(len(vetor)):
+        soma = soma + abs(vetor)
+
+    return soma
+
+    
+
+# TODO
+def normaEuclidiana(vetor):
+    soma = 0
+    for i in range(len(vetor)):
+        soma = soma + (vetor[i] * vetor[i])
+
+    return math.sqrt(soma)
+    
+def produtoInternoMesmoValor(vetor):
+    res = norma(vetor) * norma(vetor)
+    return res
+
+def multriplicaoEscalarVetor(vetor, escalar):
+    res = []
+    for i in range(len(vetor))
+        res.append(vetor[i]*escalar)
+
+    return res
+
+
 class CSR:
     def __init__(self, vaa, vja, via, linhas, colunas):
         self.vaa = vaa
@@ -180,37 +210,6 @@ class CSR:
     def convergiu(self, elem):
         return True
 
-
-
-# TODO 
-def norma(vetor):
-    soma = 0
-    for i in range(len(vetor)):
-        soma = soma + abs(vetor)
-
-    return soma
-
-    
-
-# TODO
-def normaEuclidiana(vetor):
-    soma = 0
-    for i in range(len(vetor)):
-        soma = soma + (vetor[i] * vetor[i])
-
-    return math.sqrt(soma)
-    
-def produtoInternoMesmoValor(vetor):
-    res = norma(vetor) * norma(vetor)
-    return res
-
-def multriplicaoEscalarVetor(vetor, escalar):
-    res = []
-    for i in range(len(vetor))
-        res.append(vetor[i]*escalar)
-
-    return res
-
     # TODO 
     def cgnr(self, b):
         transposta = self.transposta()
@@ -259,12 +258,29 @@ def multriplicaoEscalarVetor(vetor, escalar):
         r.append(b - self.multiplica(x[0]))
         p.append(self.transposta().multiplica(r[0]))
         i = 0
-        while(not(convergiu())):
-            alfa.append( (produtoInternoMesmoValor(r[i]) / produtoInternoMesmoValor(p[i]) ))
-            x.append(x[i] + multriplicaoEscalarVetor(p[i], alfa[i]))
-            r.append( r[i] - multriplicaoEscalarVetor(self.multiplica(p[i]) ))
-            beta.append((produtoInternoMesmoValor(r[i+1]) / produtoInternoMesmoValor(r[i]) ))
-            p.append(self.transposta(#TODO))
+        while(not(self.convergiu)):
+
+            novoAlfa = ( produtoInternoMesmoValor(r[i]) / produtoInternoMesmoValor(p[i]) )
+            alfa.append(novoAlfa)
+
+            novoX = x[i] + multriplicaoEscalarVetor(p[i], alfa[i])
+            x.append(novoX)
+            
+            novoR = r[i] - multriplicaoEscalarVetor(self.multiplica(p[i]), alfa[i])
+            r.append(novoR)
+
+
+            #if(r[-1] < 0.001):
+            #    break
+            
+            novoBeta = (produtoInternoMesmoValor(r[i+1]) / produtoInternoMesmoValor(r[i]))
+
+            beta.append(novoBeta)
+
+            novoP = self.transposta().multiplica(r[i+1]) + multriplicaoEscalarVetor(p[i], beta[i])
+            p.append(novoP)
+        
+
 
 
 b = [7, 2.5, 6.002]
@@ -276,7 +292,7 @@ via = [0, 3, 5]
 n_linha = 3
 n_coluna = 3
 matriz = CSR(vaa, vja, via, n_linha, n_coluna)
-x0 = ['x1', 'x2', 'x3']
+x0 = [1, 1, 1]
 a = CSR([6, 2, 4, 10], [1,2,0,2], [0, 2, 3], 3, 3)
 b = CSR([1, 7, 3, 5, 9], [0,2,1,2,1], [0, 2, 4], 3, 3)
 

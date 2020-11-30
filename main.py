@@ -155,8 +155,52 @@ class CSR:
 
         somatorio = 0
 
+    # TODO
+    def convergiu(self, elem):
+        return True
+
+    # TODO 
+    def norma(self):
+        return 0
+
+    # TODO
+    def normaEuclidiana(self):
+        return 0
+
+    # TODO 
+    def cgnr(self, b):
+        transposta = self.transposta()
+
+        r = []
+        z = []
+        p = []
+        w = []
+        x = []
+
+        alfa = []
+        beta = []
+
+        i = 0
+        while (not(convergiu(p[i])) and (i <= len(self))):
+            w[i] = self.multiplicaMatriz(p[i])
+            alfa[i] = (z[i].norma() ** 2) / (w[i].normaEuclidiana() ** 2)
+            x[i + 1] = x[i] + p[i].multiplica(alfa[i])
+            r[i + 1] = r[i] + w[i].multiplica(alfa[i])
+            z[i + 1] = transposta.multiplicaMatriz(r[i + 1])
+            beta[i] = (z[i + 1].normaEuclidiana() ** 2) / (z[i].normaEuclidiana() ** 2)
+            p[i + 1] = z[i + 1].soma(p[i].multiplica(beta[i]))
+
+            i += 1
+
+        if (i > len(self) and not(convergiu(p[i]))):
+            raise Exception('A matriz não convergiu!')
         
-    
+        return p[i]
+
+    # TODO 
+    def cgne(self, b):
+        return 0
+
 
 b = [7, 2.5, 6.002]
 

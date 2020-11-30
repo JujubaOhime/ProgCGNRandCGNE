@@ -125,6 +125,28 @@ class CSR:
         
         res = CSR(new_vaa, new_vja, new_via, self.linhas, self.colunas)
         return(res)
+
+    def multiplicaMatriz(self, matriz):
+
+        if(self.colunas != matriz.linhas):
+            print("Multiplicação incompatível")
+            exit(0)
+        
+        new_vaa = []
+        new_vja = []
+        new_via = []
+        posicoes = []
+        posicoes2 = []
+
+        for i in range(len(self.vaa)):
+            posicoes.append(self.acha_linha_coluna_de_elemento(i))
+        
+        for i in range(len(matriz.vaa)):
+            posicoes2.append(matriz.acha_linha_coluna_de_elemento(i))
+
+        somatorio = 0
+
+        
     
 
 b = [7, 2.5, 6.002]

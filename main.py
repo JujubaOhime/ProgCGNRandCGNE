@@ -1,3 +1,5 @@
+import math  
+
 class CSR:
     def __init__(self, vaa, vja, via, linhas, colunas):
         self.vaa = vaa
@@ -180,11 +182,27 @@ class CSR:
 
     # TODO 
     def norma(self):
-        return 0
+        soma = 0
+        for i in range(len(self.vaa)):
+            soma = soma + abs(self.vaa[i])
+
+        return soma
+
+        
 
     # TODO
     def normaEuclidiana(self):
-        return 0
+        soma = 0
+        for i in range(len(self.vaa)):
+            soma = soma + (self.vaa[i] * self.vaa[i])
+
+        return math.sqrt(soma)
+        
+    def produtoInternoMesmoValor(self):
+        res = norma(self) * norma(self)
+        return res
+
+
 
     # TODO 
     def cgnr(self, b):

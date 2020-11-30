@@ -10,7 +10,16 @@ class CSR:
         return '{{\n\tvaa: {0}\n\tvja: {1}\n\tvia: {2}\n\tlinhas: {3}\n\tcolunas: {4}\n}}'.format(self.vaa, self.vja, self.via, self.linhas, self.colunas)
     
     def multiplica(self, outroVetor):
-        pass
+        if isinstance(outroVetor, list) and self.colunas == len(outroVetor):
+            resultado = [0] * self.linhas
+            linha = 0
+
+            for i in range(len(self.vaa)):
+                if i == self.via[linha] and i != 0:
+                    linha += 1
+                resultado[linha] += self.vaa[i] * outroVetor[self.vja[i]]
+            
+            return resultado
 
     def acha_linha_coluna_de_elemento(self, posicao):
         final = []

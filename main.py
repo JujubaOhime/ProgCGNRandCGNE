@@ -8,8 +8,6 @@ def norma(vetor):
 
     return soma
 
-    
-
 # TODO
 def normaEuclidiana(vetor):
     soma = 0
@@ -28,7 +26,6 @@ def multriplicaoEscalarVetor(vetor, escalar):
         res.append(vetor[i]*escalar)
 
     return res
-
 
 class CSR:
     def __init__(self, vaa, vja, via, linhas, colunas):
@@ -207,7 +204,7 @@ class CSR:
         return(res)   
 
     # TODO
-    def convergiu(self, elem):
+    def convergiu(self, x, b):
         return True
 
     # TODO 
@@ -224,7 +221,7 @@ class CSR:
         beta = []
 
         i = 0
-        while (not(convergiu(p[i])) and (i <= len(self))):
+        while (not(self.convergiu(p[i], b))):
             w[i] = self.multiplicaMatriz(p[i])
             alfa[i] = (z[i].norma() ** 2) / (w[i].normaEuclidiana() ** 2)
             x[i + 1] = x[i] + p[i].multiplica(alfa[i])
@@ -234,20 +231,19 @@ class CSR:
             p[i + 1] = z[i + 1].soma(p[i].multiplica(beta[i]))
 
             i += 1
-
-        if (i > len(self) and not(convergiu(p[i]))):
-            raise Exception('A matriz não convergiu!')
         
         return p[i]
 
     # TODO 
     def cgne(self, b):
+        linha = []
+
         r = []
         x = []
-        beta = []
         p = []
-        linha = []
+        
         alfa = []
+        beta = []
 
         for i in range len(self.linhas):
             x = 'x' + srt(i)
@@ -258,7 +254,7 @@ class CSR:
         r.append(b - self.multiplica(x[0]))
         p.append(self.transposta().multiplica(r[0]))
         i = 0
-        while(not(self.convergiu)):
+        while (not(self.convergiu(p[i], b))):
 
             novoAlfa = ( produtoInternoMesmoValor(r[i]) / produtoInternoMesmoValor(p[i]) )
             alfa.append(novoAlfa)
@@ -279,8 +275,6 @@ class CSR:
 
             novoP = self.transposta().multiplica(r[i+1]) + multriplicaoEscalarVetor(p[i], beta[i])
             p.append(novoP)
-        
-
 
 
 b = [7, 2.5, 6.002]

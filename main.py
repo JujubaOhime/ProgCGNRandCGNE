@@ -1,30 +1,29 @@
 import math  
 
-# TODO 
 def norma(vetor):
     soma = 0
     for i in range(len(vetor)):
         soma = soma + abs(vetor)
-
+    
     return soma
 
-# TODO
 def normaEuclidiana(vetor):
     soma = 0
     for i in range(len(vetor)):
         soma = soma + (vetor[i] * vetor[i])
-
-    return math.sqrt(soma)
     
+    return math.sqrt(soma)
+
 def produtoInternoMesmoValor(vetor):
     res = norma(vetor) * norma(vetor)
+
     return res
 
 def multriplicaoEscalarVetor(vetor, escalar):
     res = []
     for i in range(len(vetor))
         res.append(vetor[i]*escalar)
-
+    
     return res
 
 class CSR:
@@ -214,6 +213,7 @@ class CSR:
         r = []
         z = []
         p = []
+
         w = []
         x = []
 
@@ -276,6 +276,9 @@ class CSR:
             novoP = self.transposta().multiplica(r[i+1]) + multriplicaoEscalarVetor(p[i], beta[i])
             p.append(novoP)
 
+            i += 1
+        
+        return p[i]
 
 b = [7, 2.5, 6.002]
 

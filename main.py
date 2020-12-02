@@ -21,7 +21,7 @@ def produtoInternoMesmoValor(vetor):
 
 def multriplicaoEscalarVetor(vetor, escalar):
     res = []
-    for i in range(len(vetor))
+    for i in range(len(vetor)):
         res.append(vetor[i]*escalar)
     
     return res
@@ -166,7 +166,7 @@ class CSR:
     def multiplicaMatriz(self, matriz):
 
         if(self.colunas != matriz.linhas):
-            print("Multiplicação incompatível")
+            print("Multiplicacao incompativel")
             exit(0)
         
         new_vaa = []
@@ -245,7 +245,7 @@ class CSR:
         alfa = []
         beta = []
 
-        for i in range len(self.linhas):
+        for i in range(len(self.linhas)):
             x = 'x' + srt(i)
             linha.append(x)
 
@@ -293,8 +293,8 @@ x0 = [1, 1, 1]
 a = CSR([6, 2, 4, 10], [1,2,0,2], [0, 2, 3], 3, 3)
 b = CSR([1, 7, 3, 5, 9], [0,2,1,2,1], [0, 2, 4], 3, 3)
 
-#print(matriz)
-#print(matriz.transposta())
+print(matriz)
+print(matriz.transposta())
 print(a.soma(b))
 print(a.subtracao(b))
 print(b.subtracao(a))

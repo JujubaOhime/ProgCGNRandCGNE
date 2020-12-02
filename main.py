@@ -1,4 +1,11 @@
 import math
+from random import randint
+
+def geraXAleatorio(n):
+  vetor = []
+  for i in range(n):
+    vetor.append((randint(-10, 10)))
+  return vetor
 
 def transformaMatrizEmCNR(A):
   # INDICIES COMECAM EM 0!
@@ -320,14 +327,14 @@ matriz = CSR(vaa, vja, via, n_linha, n_coluna)
 x0 = [1, 1, 1]
 a = CSR([6, 2, 4, 10], [1,2,0,2], [0, 2, 3], 3, 3)
 b = CSR([1, 7, 3, 5, 9], [0,2,1,2,1], [0, 2, 4], 3, 3)
-
+"""
 print(matriz)
 print(matriz.transposta())
 print(a.soma(b))
 print(a.subtracao(b))
 print(b.subtracao(a))
 print(a.multiplicaMatriz(b))
-
+"""
 """
 print((transformaMatrizEmCNR([
   [11, 12, 0, 0, 0, 0, 0],
@@ -340,3 +347,32 @@ print((transformaMatrizEmCNR([
 
 ])))
 """
+
+#Exemplo da pagina 11 do pdf Matrizes_Esparsas
+A = [
+  [10, -1, 0, 0, 0, 0, 0, 0, 0, 0],
+  [4, 11, 0, 0, 1, 0, 0, 1, 0, 0],
+  [1, 2, 12, 2, 0, 0, 3, 0, 0, 1],
+  [0, 0, 0, 13, 1, 0, 0, 1, 0, 0],
+  [0, 0, 0, 3, 14, 2, 0, -1, 2, 0],
+  [0, 0, 0, 1, 0, 15, 2, 0, -2, 2],
+  [0, 0, 0, 1, 0, 2, 16, 0, 2, 1],
+  [0, 0, 0, 3, 2, 2, 0, 17, 2, 0],
+  [0, 0, 0, 1, 0, 3, 2, 0, 18, 2],
+  [0, 0, 0, 1, 0, 2, 4, 0, 2, 19],
+]
+ACNR = transformaMatrizEmCNR(A)
+print(ACNR[0])
+print(ACNR[1])
+print(ACNR[2])
+print(ACNR[3])
+print(ACNR[4])
+
+X = geraXAleatorio(10)
+
+csr = CSR(ACNR[0], ACNR[1], ACNR[2], ACNR[3], ACNR[4])
+print(csr)
+
+# RESULTADO ESQUISITO: formato [<numero>, 0, 0, 0, ..., 0]
+print(csr.multiplica(X))
+

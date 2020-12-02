@@ -1,4 +1,39 @@
-import math  
+import math
+
+def transformaMatrizEmCNR(A):
+  # INDICIES COMECAM EM 0!
+  vAA = []
+  vJA = []
+  vIA = []
+  n_linha = len(A)
+  n_coluna = len(A[0])
+  for i in range(len(A)):
+    first = True
+    if A[i][i] != 0:
+      vAA.append(A[i][i])
+      vJA.append(i)
+      if first == True:
+        print(A[i][i])
+        firstIndexRow = len(vAA) - 1
+        vIA.append(firstIndexRow)
+        first = False
+    for j in range(len(A[0])):
+      if i != j:
+        if A[i][j] != 0:
+          vAA.append(A[i][j])
+          vJA.append(j)
+          if first == True:
+            print(A[i][j])
+            firstIndexRow = len(vAA) - 1
+            vIA.append(firstIndexRow)
+            first = False        
+  print("vAA")
+  print(vAA)
+  print("vJA")
+  print(vJA)
+  print("vIA")
+  print(vIA)
+  return vAA, vJA, vIA, n_linha, n_coluna
 
 def norma(vetor):
     soma = 0
@@ -301,3 +336,14 @@ print(b.subtracao(a))
 print(a.multiplicaMatriz(b))
 
 
+print("---------------------")
+(transformaMatrizEmCNR([
+  [11, 12, 0, 0, 0, 0, 0],
+  [21, 22, 0, 0, 25, 0, 0],
+  [31, 32, 33, 34, 0, 0, 37],
+  [0, 0, 0, 44, 45, 0, 0],
+  [0, 0, 0, 54, 55, 56, 0],
+  [0, 0, 0, 64, 0, 66, 67],
+  [0, 0, 0, 74, 0, 76, 77],
+
+]))

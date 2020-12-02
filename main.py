@@ -13,7 +13,6 @@ def transformaMatrizEmCNR(A):
       vAA.append(A[i][i])
       vJA.append(i)
       if first == True:
-        print(A[i][i])
         firstIndexRow = len(vAA) - 1
         vIA.append(firstIndexRow)
         first = False
@@ -23,16 +22,10 @@ def transformaMatrizEmCNR(A):
           vAA.append(A[i][j])
           vJA.append(j)
           if first == True:
-            print(A[i][j])
             firstIndexRow = len(vAA) - 1
             vIA.append(firstIndexRow)
             first = False        
-  print("vAA")
-  print(vAA)
-  print("vJA")
-  print(vJA)
-  print("vIA")
-  print(vIA)
+
   return vAA, vJA, vIA, n_linha, n_coluna
 
 def norma(vetor):
@@ -335,9 +328,8 @@ print(a.subtracao(b))
 print(b.subtracao(a))
 print(a.multiplicaMatriz(b))
 
-
-print("---------------------")
-(transformaMatrizEmCNR([
+"""
+print((transformaMatrizEmCNR([
   [11, 12, 0, 0, 0, 0, 0],
   [21, 22, 0, 0, 25, 0, 0],
   [31, 32, 33, 34, 0, 0, 37],
@@ -346,4 +338,5 @@ print("---------------------")
   [0, 0, 0, 64, 0, 66, 67],
   [0, 0, 0, 74, 0, 76, 77],
 
-]))
+])))
+"""

@@ -38,9 +38,9 @@ def transformaMatrizEmCNR(A):
 def norma(vetor):
     soma = 0
     for i in range(len(vetor)):
-        soma = soma + abs(vetor)
+        soma = soma + (vetor[i]) ** 2
     
-    return soma
+    return soma ** 0.5
 
 def normaEuclidiana(vetor):
     soma = 0
@@ -268,8 +268,9 @@ class CSR:
     def convergiu(self, x, b, iteracao, erro):
         if ((self.multiplica(x) <= (b+erro)) and ((self.multiplica(x) => (b-erro))):
           return True
-        if iteracao + 1 > len(x):
-          raise Exception("Convergencia nao conseguiu ser atingida em " + str(iteracao) + " iteracoes") 
+        #if iteracao + 1 > len(x):
+        #  raise Exception("Convergencia nao conseguiu ser atingida em " + str(iteracao) + " iteracoes") 
+        
         return False
 
     # TODO 
@@ -292,7 +293,7 @@ class CSR:
         beta = 0
 
         i = 0
-        while (not(self.convergiu(xAtual, b))):
+        while (not(self.convergiu(xAtual, b, i))):
             xAnterior = xAtual
             zAnterior = zAtual
 
@@ -306,7 +307,7 @@ class CSR:
             p = somaVetores(zAtual, multiplicaoEscalarVetor(p, beta))
 
             i += 1
-        
+          
         return xAtual
 
     # TODO 

@@ -237,6 +237,31 @@ class CSR:
         res = CSR(new_vaa, new_vja, new_via, self.linhas, matriz.colunas)
         return(res)   
 
+
+    def multiplicaAgoraVai(self, vetor):
+
+        if(self.colunas != len(vetor)):
+            print("Multiplicacao incompativel")
+            exit(0)
+        
+        res = []
+        posicoes = []
+
+        for i in range(len(self.vaa)):
+            posicoes.append(self.acha_linha_coluna_de_elemento(i))
+
+
+        for i in range(self.linhas):
+            for j in range(1):
+                soma = 0
+                for k in range(self.colunas):
+                    if ([i,k] in posicoes):
+                        soma = soma + (vetor[k] * self.vaa[posicoes.index([i, k])]) 
+                res.append(soma)
+
+        return(res)   
+
+
     # TODO
     def convergiu(self, x, b):
         return True
@@ -369,10 +394,10 @@ print(ACNR[3])
 print(ACNR[4])
 
 X = geraXAleatorio(10)
-
+vetor = [3, 0, 1]
 csr = CSR(ACNR[0], ACNR[1], ACNR[2], ACNR[3], ACNR[4])
 print(csr)
 
 # RESULTADO ESQUISITO: formato [<numero>, 0, 0, 0, ..., 0]
-print(csr.multiplica(X))
+print(matriz.multiplicaAgoraVai(vetor))
 

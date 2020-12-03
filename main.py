@@ -279,11 +279,11 @@ class CSR:
         #  raise Exception("Convergencia nao conseguiu ser atingida em " + str(iteracao) + " iteracoes") 
         print("Ax: ", Ax)
         print("b: ", b)
-        print("iteracao: ", iteracao)
+        print("Feito em {} iterações".format(iteracao))
         return True
 
     # TODO 
-    def cgnr(self, xInicial, b):
+    def cgnr(self, xInicial, b, erro):
         transposta = self.transposta()
 
         xAtual = xInicial
@@ -302,7 +302,6 @@ class CSR:
         beta = 0
 
         i = 0
-        erro = 0.00001
         while (not(self.convergiu(self.multiplica(xAtual), b, i, erro))):
             xAnterior = xAtual
             zAnterior = zAtual
@@ -321,7 +320,7 @@ class CSR:
         return xAtual
 
     # TODO 
-    def cgne(self, xInicial, b):
+    def cgne(self, xInicial, b, erro):
         transposta = self.transposta()
 
         xAtual = xInicial
@@ -336,7 +335,6 @@ class CSR:
         beta = 0
 
         i = 0
-        erro = 0.00001
         while (not(self.convergiu(self.multiplica(xAtual), b, i, erro))):
             xAnterior = xAtual
             rAnterior = rAtual
@@ -353,6 +351,7 @@ class CSR:
         return xAtual
 
 #Exemplo da pagina 11 do pdf Matrizes_Esparsas
+X = geraXAleatorio(10)
 A = [
   [10, -1, 0, 0, 0, 0, 0, 0, 0, 0],
   [4, 11, 0, 0, 1, 0, 0, 1, 0, 0],
@@ -365,16 +364,16 @@ A = [
   [0, 0, 0, 1, 0, 3, 2, 0, 18, 2],
   [0, 0, 0, 1, 0, 2, 4, 0, 2, 19],
 ]
-X = geraXAleatorio(10)
 b = [9, 17, 21, 15, 20, 18, 22, 28, 26, 28]
+erroTolerável = 0.0000001
 
 ACSR = transformaMatrizEmCSR(A)
-
 csr = CSR(ACSR[0], ACSR[1], ACSR[2], ACSR[3], ACSR[4])
-print(csr)
 
+print(csr)
+print("\n")
 print("Com o método CGNR: \n")
-csr.cgnr(X, b)
+csr.cgnr(X, b, erroTolerável)
 print("\n")
 print("Com o método CGNE: \n")
-csr.cgne(X, b)
+csr.cgne(X, b, erroTolerável)

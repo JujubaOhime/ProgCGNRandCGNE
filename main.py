@@ -313,39 +313,31 @@ class CSR:
     def cgne(self, xInicial, b):
         transposta = self.transposta()
 
-        x = []
-        x.append(xInicial)
+        xAtual = xInicial
+        xAnterior = []
 
-        r = []
-        r.append(subtracaoVetores(b, self.multiplica(x[0])))
+        rAtual = subtracaoVetores(b, self.multiplica(xAtual))
+        rAnterior = []
 
-        p = []
-        p.append(transposta.multiplica(r[0]))
+        p = transposta.multiplica(rAtual)
         
-        alfa = []
-        beta = []
+        alfa = 0
+        beta = 0
 
         i = 0
-        while (not(self.convergiu(p[i], b))):
-            novoAlfa = ( produtoInternoMesmoValor(r[i]) / produtoInternoMesmoValor(p[i]) )
-            alfa.append(novoAlfa)
+        while (not(self.convergiu(xAtual, b))):
+            xAnterior = xAtual
+            rAnterior = rAtual
 
-            novoX = x[i] + multiplicaoEscalarVetor(p[i], alfa[i])
-            x.append(novoX)
-
-            novoR = r[i] - multiplicaoEscalarVetor(self.multiplica(p[i]), alfa[i])
-            r.append(novoR)
-
-            novoBeta = (produtoInternoMesmoValor(r[i+1]) / produtoInternoMesmoValor(r[i]))
-
-            beta.append(novoBeta)
-
-            novoP = self.transposta().multiplica(r[i+1]) + multiplicaoEscalarVetor(p[i], beta[i])
-            p.append(novoP)
+            alfa = produtoInternoMesmoValor(rAtual) / produtoInternoMesmoValor(p)
+            xAtual = somaVetores(xAtual, multiplicaoEscalarVetor(p, alfa))
+            rAtual = subtracaoVetores(rAtual, multiplicaoEscalarVetor(self.multiplica(p), alfa))
+            beta = produtoInternoMesmoValor(rAtual) / produtoInternoMesmoValor(rAnterior)
+            p = somaVetores(transposta.multiplica(rAtual), multiplicaoEscalarVetor(p, beta))
 
             i += 1
         
-        return p[i]
+        return xAtual
 
 b = [7, 2.5, 6.002]
 

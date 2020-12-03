@@ -296,14 +296,14 @@ class CSR:
             xAnterior = xAtual
             zAnterior = zAtual
 
-            w = self.multiplicaMatriz(p)
+            w = self.multiplica(p)
             alfa = (norma(zAnterior) ** 2) / (normaEuclidiana(w) ** 2)
             xAtual = somaVetores(xAnterior, multiplicaoEscalarVetor(p, alfa))
             r = subtracaoVetores(r, multiplicaoEscalarVetor(w, alfa))
 
             zAtual = transposta.multiplica(r)
             beta = (normaEuclidiana(zAtual) ** 2) / (normaEuclidiana(zAnterior) ** 2)
-            p = zsomaVetores(zAtual, multiplicaoEscalarVetor(p, beta))
+            p = somaVetores(zAtual, multiplicaoEscalarVetor(p, beta))
 
             i += 1
         

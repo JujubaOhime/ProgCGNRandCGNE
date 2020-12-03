@@ -370,6 +370,9 @@ erroTolerável = 0.0000001
 ACSR = transformaMatrizEmCSR(A)
 csr = CSR(ACSR[0], ACSR[1], ACSR[2], ACSR[3], ACSR[4])
 
+# se preferir set os valores dentro de CSR nesta ordem:
+# vAA, vJA, vIA, n_de_linhas_matriz, n_de_colunas_matriz 
+
 print(csr)
 print("\n")
 print("Com o método CGNR: \n")

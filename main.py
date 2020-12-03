@@ -75,6 +75,9 @@ def somaVetores(parcela, outraParcela):
     
     return res
 
+    
+
+
 class CSR:
     def __init__(self, vaa, vja, via, linhas, colunas):
         self.vaa = vaa
@@ -263,15 +266,21 @@ class CSR:
 
         return(res)   
 
+    
+
+
 
     # TODO
-    def convergiu(self, x, b, iteracao, erro):
-        if ((self.multiplica(x) <= (b+erro)) and ((self.multiplica(x) => (b-erro))):
-          return True
-        #if iteracao + 1 > len(x):
-        #  raise Exception("Convergencia nao conseguiu ser atingida em " + str(iteracao) + " iteracoes") 
+    def convergiu(self, Ax, b, iteracao, erro):
         
-        return False
+        for i in range(len(Ax)):
+          if not (Ax[i] <= b[i] + erro and Ax[i] >= b[i] - erro):
+            return False
+        #if iteracao + 1 > len(Ax):
+        #  raise Exception("Convergencia nao conseguiu ser atingida em " + str(iteracao) + " iteracoes") 
+        print("Ax: ", Ax)
+        print("b: ", b)
+        return True
 
     # TODO 
     def cgnr(self, xInicial, b):
@@ -293,7 +302,7 @@ class CSR:
         beta = 0
 
         i = 0
-        while (not(self.convergiu(xAtual, b, i))):
+        while (not(self.convergiu(self.multiplica(xAtual), b, i, 0.001))):
             xAnterior = xAtual
             zAnterior = zAtual
 
@@ -307,7 +316,7 @@ class CSR:
             p = somaVetores(zAtual, multiplicaoEscalarVetor(p, beta))
 
             i += 1
-          
+        print("X = ", xAtual)
         return xAtual
 
     # TODO 

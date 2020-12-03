@@ -68,6 +68,13 @@ def subtracaoVetores(minuendo, subtraendo):
     
     return res
 
+def somaVetores(parcela, outraParcela):
+    res = []
+    for i in range(len(parcela)):
+        res.append(parcela[i] + outraParcela[i])
+    
+    return res
+
 class CSR:
     def __init__(self, vaa, vja, via, linhas, colunas):
         self.vaa = vaa
@@ -277,36 +284,38 @@ class CSR:
     def cgnr(self, xInicial, b):
         transposta = self.transposta()
 
-        x = []
-        x.append(xInicial)
+        xAtual = xInicial
+        xAnterior = []
 
-        r = []
-        r.append(subtracaoVetores(b, self.multiplica(x[0])))
+        r = subtracaoVetores(b, self.multiplica(xAtual))
 
-        z = []
-        z.append(transposta.multiplica(r[0]))
+        zAtual = transposta.multiplica(r)
+        zAnterior = []
 
-        p = []
-        p.append(z[0])
+        p = zAtual
 
         w = []
 
-        alfa = []
-        beta = []
+        alfa = 0
+        beta = 0
 
         i = 0
-        while (not(self.convergiu(p[i], b))):
-            w[i] = self.multiplicaMatriz(p[i])
-            alfa[i] = (z[i].norma() ** 2) / (w[i].normaEuclidiana() ** 2)
-            x[i + 1] = x[i] + p[i].multiplica(alfa[i])
-            r[i + 1] = r[i] + w[i].multiplica(alfa[i])
-            z[i + 1] = transposta.multiplicaMatriz(r[i + 1])
-            beta[i] = (z[i + 1].normaEuclidiana() ** 2) / (z[i].normaEuclidiana() ** 2)
-            p[i + 1] = z[i + 1].soma(p[i].multiplica(beta[i]))
+        while (not(self.convergiu(xAtual, b))):
+            xAnterior = xAtual
+            zAnterior = zAtual
+
+            w = self.multiplicaMatriz(p)
+            alfa = (norma(zAnterior) ** 2) / (normaEuclidiana(w) ** 2)
+            xAtual = somaVetores(xAnterior, multiplicaoEscalarVetor(p, alfa))
+            r = subtracaoVetores(r, multiplicaoEscalarVetor(w, alfa))
+
+            zAtual = transposta.multiplica(r)
+            beta = (normaEuclidiana(zAtual) ** 2) / (normaEuclidiana(zAnterior) ** 2)
+            p = zsomaVetores(zAtual, multiplicaoEscalarVetor(p, beta))
 
             i += 1
         
-        return p[i]
+        return xAtual
 
     # TODO 
     def cgne(self, xInicial, b):

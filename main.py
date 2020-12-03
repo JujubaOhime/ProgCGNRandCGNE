@@ -317,17 +317,17 @@ class CSR:
             novoAlfa = ( produtoInternoMesmoValor(r[i]) / produtoInternoMesmoValor(p[i]) )
             alfa.append(novoAlfa)
 
-            novoX = x[i] + multriplicaoEscalarVetor(p[i], alfa[i])
+            novoX = x[i] + multiplicaoEscalarVetor(p[i], alfa[i])
             x.append(novoX)
 
-            novoR = r[i] - multriplicaoEscalarVetor(self.multiplica(p[i]), alfa[i])
+            novoR = r[i] - multiplicaoEscalarVetor(self.multiplica(p[i]), alfa[i])
             r.append(novoR)
 
             novoBeta = (produtoInternoMesmoValor(r[i+1]) / produtoInternoMesmoValor(r[i]))
 
             beta.append(novoBeta)
 
-            novoP = self.transposta().multiplica(r[i+1]) + multriplicaoEscalarVetor(p[i], beta[i])
+            novoP = self.transposta().multiplica(r[i+1]) + multiplicaoEscalarVetor(p[i], beta[i])
             p.append(novoP)
 
             i += 1

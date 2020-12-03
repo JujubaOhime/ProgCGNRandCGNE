@@ -265,8 +265,8 @@ class CSR:
 
 
     # TODO
-    def convergiu(self, x, b, iteracao):
-        if self.multiplica(x) == b:
+    def convergiu(self, x, b, iteracao, erro):
+        if ((self.multiplica(x) <= (b+erro)) and ((self.multiplica(x) => (b-erro))):
           return True
         if iteracao + 1 > len(x):
           raise Exception("Convergencia nao conseguiu ser atingida em " + str(iteracao) + " iteracoes") 

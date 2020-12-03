@@ -54,7 +54,7 @@ def produtoInternoMesmoValor(vetor):
 
     return res
 
-def multriplicaoEscalarVetor(vetor, escalar):
+def multiplicaoEscalarVetor(vetor, escalar):
     res = []
     for i in range(len(vetor)):
         res.append(vetor[i]*escalar)
@@ -78,18 +78,6 @@ class CSR:
 
     def __str__(self):
         return '{{\n\tvaa: {0}\n\tvja: {1}\n\tvia: {2}\n\tlinhas: {3}\n\tcolunas: {4}\n}}'.format(self.vaa, self.vja, self.via, self.linhas, self.colunas)
-    
-    def multiplica(self, outroVetor):
-        if isinstance(outroVetor, list) and self.colunas == len(outroVetor):
-            resultado = [0] * self.linhas
-            linha = 0
-
-            for i in range(len(self.vaa)):
-                if i == self.via[linha] and i != 0:
-                    linha += 1
-                resultado[linha] += self.vaa[i] * outroVetor[self.vja[i]]
-            
-            return resultado
 
     def acha_linha_coluna_de_elemento(self, posicao):
         final = []
@@ -245,7 +233,7 @@ class CSR:
         return(res)   
 
 
-    def multiplicaAgoraVai(self, vetor):
+    def multiplica(self, vetor):
 
         if(self.colunas != len(vetor)):
             print("Multiplicacao incompativel")
@@ -278,8 +266,8 @@ class CSR:
         transposta = self.transposta()
 
         x = []
-        x.append(xInicial)
 
+        x.append(xInicial)
         r = []
         r.append(subtracaoVetores(b, self.multiplica(x[0])))
 
@@ -405,5 +393,5 @@ csr = CSR(ACNR[0], ACNR[1], ACNR[2], ACNR[3], ACNR[4])
 print(csr)
 
 # RESULTADO ESQUISITO: formato [<numero>, 0, 0, 0, ..., 0]
-print(matriz.multiplicaAgoraVai(vetor))
+print(matriz.multiplica(vetor))
 

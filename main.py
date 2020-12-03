@@ -258,9 +258,12 @@ class CSR:
 
 
     # TODO
-    def convergiu(self, x, b):
-        return True
-
+    def convergiu(self, x, b, iteracao):
+        if self.multiplica(x) == b:
+          return True
+        if iteracao + 1 > len(x):
+          raise Exception("Convergencia nao conseguiu ser atingida em " + str(iteracao) + " iteracoes") 
+        return False
     # TODO 
     def cgnr(self, xInicial, b):
         transposta = self.transposta()
@@ -380,6 +383,10 @@ A = [
   [0, 0, 0, 1, 0, 3, 2, 0, 18, 2],
   [0, 0, 0, 1, 0, 2, 4, 0, 2, 19],
 ]
+X = geraXAleatorio(10)
+b = [9, 17, 21, 15, 20, 18, 22, 28, 26, 28]
+
+
 ACNR = transformaMatrizEmCNR(A)
 print(ACNR[0])
 print(ACNR[1])
@@ -387,7 +394,7 @@ print(ACNR[2])
 print(ACNR[3])
 print(ACNR[4])
 
-X = geraXAleatorio(10)
+
 vetor = [3, 0, 1]
 csr = CSR(ACNR[0], ACNR[1], ACNR[2], ACNR[3], ACNR[4])
 print(csr)
@@ -395,3 +402,4 @@ print(csr)
 # RESULTADO ESQUISITO: formato [<numero>, 0, 0, 0, ..., 0]
 print(matriz.multiplica(vetor))
 
+csr.cgnr(X, b)

@@ -7,7 +7,7 @@ def geraXAleatorio(n):
     vetor.append((randint(-10, 10)))
   return vetor
 
-def transformaMatrizEmCNR(A):
+def transformaMatrizEmCSR(A):
   # INDICIES COMECAM EM 0!
   vAA = []
   vJA = []
@@ -272,7 +272,6 @@ class CSR:
 
     # TODO
     def convergiu(self, Ax, b, iteracao, erro):
-        
         for i in range(len(Ax)):
           if not (Ax[i] <= b[i] + erro and Ax[i] >= b[i] - erro):
             return False
@@ -280,6 +279,7 @@ class CSR:
         #  raise Exception("Convergencia nao conseguiu ser atingida em " + str(iteracao) + " iteracoes") 
         print("Ax: ", Ax)
         print("b: ", b)
+        print("iteracao: ", iteracao)
         return True
 
     # TODO 
@@ -302,7 +302,8 @@ class CSR:
         beta = 0
 
         i = 0
-        while (not(self.convergiu(self.multiplica(xAtual), b, i, 0.001))):
+        erro = 0.0001
+        while (not(self.convergiu(self.multiplica(xAtual), b, i, erro))):
             xAnterior = xAtual
             zAnterior = zAtual
 
@@ -349,39 +350,6 @@ class CSR:
         
         return xAtual
 
-b = [7, 2.5, 6.002]
-
-vaa = [10, -7, 3, 2.5, 5, 6.002]
-vja = [0, 1, 2, 1, 2, 2]
-via = [0, 3, 5]
-
-n_linha = 3
-n_coluna = 3
-matriz = CSR(vaa, vja, via, n_linha, n_coluna)
-x0 = [1, 1, 1]
-a = CSR([6, 2, 4, 10], [1,2,0,2], [0, 2, 3], 3, 3)
-b = CSR([1, 7, 3, 5, 9], [0,2,1,2,1], [0, 2, 4], 3, 3)
-"""
-print(matriz)
-print(matriz.transposta())
-print(a.soma(b))
-print(a.subtracao(b))
-print(b.subtracao(a))
-print(a.multiplicaMatriz(b))
-"""
-"""
-print((transformaMatrizEmCNR([
-  [11, 12, 0, 0, 0, 0, 0],
-  [21, 22, 0, 0, 25, 0, 0],
-  [31, 32, 33, 34, 0, 0, 37],
-  [0, 0, 0, 44, 45, 0, 0],
-  [0, 0, 0, 54, 55, 56, 0],
-  [0, 0, 0, 64, 0, 66, 67],
-  [0, 0, 0, 74, 0, 76, 77],
-
-])))
-"""
-
 #Exemplo da pagina 11 do pdf Matrizes_Esparsas
 A = [
   [10, -1, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -398,20 +366,9 @@ A = [
 X = geraXAleatorio(10)
 b = [9, 17, 21, 15, 20, 18, 22, 28, 26, 28]
 
+ACSR = transformaMatrizEmCSR(A)
 
-ACNR = transformaMatrizEmCNR(A)
-print(ACNR[0])
-print(ACNR[1])
-print(ACNR[2])
-print(ACNR[3])
-print(ACNR[4])
-
-
-vetor = [3, 0, 1]
-csr = CSR(ACNR[0], ACNR[1], ACNR[2], ACNR[3], ACNR[4])
+csr = CSR(ACSR[0], ACSR[1], ACSR[2], ACSR[3], ACSR[4])
 print(csr)
-
-# RESULTADO ESQUISITO: formato [<numero>, 0, 0, 0, ..., 0]
-print(matriz.multiplica(vetor))
 
 csr.cgnr(X, b)

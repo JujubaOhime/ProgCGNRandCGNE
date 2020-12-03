@@ -302,7 +302,7 @@ class CSR:
         beta = 0
 
         i = 0
-        erro = 0.0001
+        erro = 0.00001
         while (not(self.convergiu(self.multiplica(xAtual), b, i, erro))):
             xAnterior = xAtual
             zAnterior = zAtual
@@ -336,7 +336,8 @@ class CSR:
         beta = 0
 
         i = 0
-        while (not(self.convergiu(xAtual, b))):
+        erro = 0.00001
+        while (not(self.convergiu(self.multiplica(xAtual), b, i, erro))):
             xAnterior = xAtual
             rAnterior = rAtual
 
@@ -348,6 +349,7 @@ class CSR:
 
             i += 1
         
+        print("X = ", xAtual)
         return xAtual
 
 #Exemplo da pagina 11 do pdf Matrizes_Esparsas
@@ -371,4 +373,8 @@ ACSR = transformaMatrizEmCSR(A)
 csr = CSR(ACSR[0], ACSR[1], ACSR[2], ACSR[3], ACSR[4])
 print(csr)
 
+print("Com o método CGNR: \n")
 csr.cgnr(X, b)
+print("\n")
+print("Com o método CGNE: \n")
+csr.cgne(X, b)

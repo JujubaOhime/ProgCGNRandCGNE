@@ -61,6 +61,13 @@ def multriplicaoEscalarVetor(vetor, escalar):
     
     return res
 
+def subtracaoVetores(minuendo, subtraendo):
+    res = []
+    for i in range(len(minuendo)):
+        res.append(minuendo[i] - subtraendo[i])
+    
+    return res
+
 class CSR:
     def __init__(self, vaa, vja, via, linhas, colunas):
         self.vaa = vaa
@@ -242,15 +249,22 @@ class CSR:
         return True
 
     # TODO 
-    def cgnr(self, b):
+    def cgnr(self, xInicial, b):
         transposta = self.transposta()
 
+        x = []
+        x.append(xInicial)
+
         r = []
+        r.append(subtracaoVetores(b, self.multiplica(x[0])))
+
         z = []
+        z.append(transposta.multiplica(r[0]))
+
         p = []
+        p.append(z[0])
 
         w = []
-        x = []
 
         alfa = []
         beta = []
@@ -270,40 +284,32 @@ class CSR:
         return p[i]
 
     # TODO 
-    def cgne(self, b):
-        linha = []
+    def cgne(self, xInicial, b):
+        transposta = self.transposta()
+
+        x = []
+        x.append(xInicial)
 
         r = []
-        x = []
+        r.append(subtracaoVetores(b, self.multiplica(x[0])))
+
         p = []
+        p.append(transposta.multiplica(r[0]))
         
         alfa = []
         beta = []
 
-        for i in range(len(self.linhas)):
-            x = 'x' + srt(i)
-            linha.append(x)
-
-        x.append(linha)
-        
-        r.append(b - self.multiplica(x[0]))
-        p.append(self.transposta().multiplica(r[0]))
         i = 0
         while (not(self.convergiu(p[i], b))):
-
             novoAlfa = ( produtoInternoMesmoValor(r[i]) / produtoInternoMesmoValor(p[i]) )
             alfa.append(novoAlfa)
 
             novoX = x[i] + multriplicaoEscalarVetor(p[i], alfa[i])
             x.append(novoX)
-            
+
             novoR = r[i] - multriplicaoEscalarVetor(self.multiplica(p[i]), alfa[i])
             r.append(novoR)
 
-
-            #if(r[-1] < 0.001):
-            #    break
-            
             novoBeta = (produtoInternoMesmoValor(r[i+1]) / produtoInternoMesmoValor(r[i]))
 
             beta.append(novoBeta)

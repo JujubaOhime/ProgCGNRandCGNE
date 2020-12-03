@@ -352,6 +352,7 @@ class CSR:
 
 #Exemplo da pagina 11 do pdf Matrizes_Esparsas
 X = geraXAleatorio(10)
+
 A = [
   [10, -1, 0, 0, 0, 0, 0, 0, 0, 0],
   [4, 11, 0, 0, 1, 0, 0, 1, 0, 0],
@@ -365,10 +366,13 @@ A = [
   [0, 0, 0, 1, 0, 2, 4, 0, 2, 19],
 ]
 b = [9, 17, 21, 15, 20, 18, 22, 28, 26, 28]
+
 erroTolerável = 0.0000001
 
 ACSR = transformaMatrizEmCSR(A)
+
 csr = CSR(ACSR[0], ACSR[1], ACSR[2], ACSR[3], ACSR[4])
+
 
 # se preferir set os valores dentro de CSR nesta ordem:
 # vAA, vJA, vIA, n_de_linhas_matriz, n_de_colunas_matriz 
@@ -380,3 +384,33 @@ csr.cgnr(X, b, erroTolerável)
 print("\n")
 print("Com o método CGNE: \n")
 csr.cgne(X, b, erroTolerável)
+
+
+'''
+#segundoteste
+X2 = geraXAleatorio(12)
+A2 = [
+    [10, 5, 6, 7, 0, 0, 0, 0, 0, 0, 0, 0],
+    [20, 20, 21, 14, 4, 0, 0, 0, 0, 0, 0, 0],
+    [90, 65, 82, 64, 10, 3, 0, 0, 0, 0, 0, 0],
+    [0, 90, 101, 12, 49, 14, 7, 0, 0, 0, 0, 0],
+    [0, 0, 90, 29, 46, 48, 20, 7, 0, 0, 0, 0],
+    [0, 0, 0, 90, 101, 92, 83, 20, 4, 0, 0, 0],
+    [0, 0, 0, 0, 90, 65, 80, 84, 15, 5, 0, 0],
+    [0, 0, 0, 0, 0, 90, 92, 82, 53, 11, 2, 0],
+    [0, 0, 0, 0, 0, 0, 90, 101, 79, 47, 5, 9],
+    [0, 0, 0, 0, 0, 0, 0, 90, 47, 19, 28, 20],
+    [0, 0, 0, 0, 0, 0, 0, 0, 90, 20, 35, 86],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 90, 92, 30],
+]
+b2 = [28, 79, 314, 273, 240, 390, 339, 330, 331, 204, 231, 212]
+ACSR2 = transformaMatrizEmCSR(A2)
+csr2 = CSR(ACSR2[0], ACSR2[1], ACSR2[2], ACSR2[3], ACSR2[4])
+print(csr2)
+print("\n")
+print("Com o método CGNR: \n")
+csr2.cgnr(X2, b2, erroTolerável)
+print("\n")
+print("Com o método CGNE: \n")
+csr2.cgne(X2, b2, erroTolerável)
+'''

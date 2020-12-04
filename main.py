@@ -352,12 +352,13 @@ class CSR:
 TESTES
 """
 
-erroToleravel = 0.01
+erroToleravel = 0.0001
+
+
 
 
 print("--------")
 print("Teste 1:\n")
-sleep(1)
 # Exemplo da pagina 11 do pdf Matrizes_Esparsas
 A = [
   [10, -1, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -380,19 +381,16 @@ A_csr = transforma_matriz_em_csr(A)
 print(A_csr)
 print("\nCom o metodo CGNR:\n")
 A_csr.cgnr(x, b, erroToleravel)
-sleep(1)
 print("\nCom o metodo CGNE:\n")
 A_csr.cgne(x, b, erroToleravel)
-sleep(1)
 print("\nFim do Teste 1.")
 print("---------------\n")
 
 
 
-sleep(2)
 print("--------")
 print("Teste 2:\n")
-sleep(1)
+
 # Exemplo da pagina 4 do pdf Matrizes_Esparsas
 A2 = [
     [10, 5, 6, 7, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -416,8 +414,8 @@ A_csr2 = transforma_matriz_em_csr(A2)
 print(A_csr2)
 print("\nCom o metodo CGNR:\n")
 A_csr2.cgnr(x2, b2, erroToleravel)
-sleep(1)
 print("\nCom o metodo CGNE:\n")
 A_csr2.cgne(x2, b2, erroToleravel)
 print("\nFim do Teste 2.")
 print("---------------")
+

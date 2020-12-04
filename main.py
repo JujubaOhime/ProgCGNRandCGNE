@@ -354,8 +354,15 @@ TESTES
 
 erroToleravel = 0.0001
 
-#insira o seu caso aqui, mudando o seu erro toleravel, A, b
-'''
+"""
+
+insira o seu caso aqui abaixo removendo as tres aspas acima de erro toleravel e mude o seu erro toleravel, A, b
+caso ao invés do A pronto, desejar inserir o vaa, vja, vii (listas)
+apenas apague A_csr = transforma_matriz_em_csr(A) e susbtituia por A_csr = CSR(vaa, vja, vii) 
+
+"""
+
+"""
 erroToleravel = 0.0001
 A = [
   [10, -1, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -369,17 +376,17 @@ A = [
   [0, 0, 0, 1, 0, 3, 2, 0, 18, 2],
   [0, 0, 0, 1, 0, 2, 4, 0, 2, 19],
 ]
-N = len(A)
-x0 = gera_x_aleatorio(N)
+
 b = [9, 17, 21, 15, 20, 18, 22, 28, 26, 28]
 A_csr = transforma_matriz_em_csr(A)
+x0 = gera_x_aleatorio(A_csr.linhas)
 print(A_csr)
 print("\nCom o metodo CGNR:\n")
-A_csr.cgnr(x, b, erroToleravel)
+A_csr.cgnr(x0, b, erroToleravel)
 print("\nCom o metodo CGNE:\n")
-A_csr.cgne(x, b, erroToleravel)
+A_csr.cgne(x0, b, erroToleravel)
 print("---------------\n")
-'''
+"""
 
 
 print("--------")

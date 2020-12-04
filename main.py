@@ -357,7 +357,7 @@ erroToleravel = 0.0001
 """
 
 insira o seu caso aqui abaixo removendo as tres aspas acima de erro toleravel e mude o seu erro toleravel, A, b
-caso ao invés do A pronto, desejar inserir o vaa, vja, vii (listas)
+caso ao inves do A pronto, desejar inserir o vaa, vja, vii (listas)
 apenas apague A_csr = transforma_matriz_em_csr(A) e susbtituia por A_csr = CSR(vaa, vja, vii) 
 
 """

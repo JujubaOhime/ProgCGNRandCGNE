@@ -34,7 +34,7 @@ def transforma_matriz_em_csr(A):
             vIA.append(primeiro_indicie_linha)
             primeira_execucao = False   
 
-  return CSR(vAA, vJA, vIA, n_linha, n_coluna)
+  return CSR(vAA, vJA, vIA)
 
 def norma(vetor):
     soma = 0
@@ -79,15 +79,15 @@ def soma_vetores(parcela, outra_parcela):
 
 
 class CSR:
-    def __init__(self, vaa, vja, via, linhas, colunas):
+    def __init__(self, vaa, vja, via):
         self.vaa = vaa
         self.vja = vja
         self.via = via
-        self.linhas = linhas
-        self.colunas = colunas
+        self.linhas = len(via)
+        self.colunas = max(vja)+1
 
     def __str__(self):
-        return '{{\n\tvaa: {0}\n\tvja: {1}\n\tvia: {2}\n\tlinhas: {3}\n\tcolunas: {4}\n}}'.format(self.vaa, self.vja, self.via, self.linhas, self.colunas)
+        return '{{\n\tvaa: {0}\n\tvja: {1}\n\tvia: {2}\n\t\n}}'.format(self.vaa, self.vja, self.via)
 
     def acha_linha_coluna_de_elemento(self, posicao):
         final = []
@@ -121,7 +121,7 @@ class CSR:
                         new_via.append(somatorio)
                     somatorio = somatorio + 1
                     menor = menor + 1
-        resposta = CSR(new_vaa, new_vja, new_via, self.linhas, self.colunas)
+        resposta = CSR(new_vaa, new_vja, new_via)
 
         return(resposta)
 
@@ -159,7 +159,7 @@ class CSR:
                     somatorio = somatorio + 1
                     menor = menor + 1
         
-        res = CSR(new_vaa, new_vja, new_via, self.linhas, self.colunas)
+        res = CSR(new_vaa, new_vja, new_via)
         return(res)
 
     def subtracao(self, matriz):
@@ -196,7 +196,7 @@ class CSR:
                     somatorio = somatorio + 1
                     menor = menor + 1
         
-        res = CSR(new_vaa, new_vja, new_via, self.linhas, self.colunas)
+        res = CSR(new_vaa, new_vja, new_via)
         return(res)
 
     def multiplica_matriz(self, matriz):
@@ -235,7 +235,7 @@ class CSR:
                     somatorio = somatorio + 1
                     menor = menor + 1
 
-        res = CSR(new_vaa, new_vja, new_via, self.linhas, matriz.colunas)
+        res = CSR(new_vaa, new_vja, new_via)
         return(res)   
 
 
@@ -405,6 +405,7 @@ A_csr = transforma_matriz_em_csr(A)
 
 print(A_csr)
 print("\nCom o metodo CGNR:\n")
+print(A_csr.linhas, A_csr.colunas)
 A_csr.cgnr(x, b, erroToleravel)
 print("\nCom o metodo CGNE:\n")
 A_csr.cgne(x, b, erroToleravel)

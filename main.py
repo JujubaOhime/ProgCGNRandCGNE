@@ -32,7 +32,7 @@ def transforma_matriz_em_csr(A):
           if primeira_execucao == True:
             primeiro_indicie_linha = len(vAA) - 1
             vIA.append(primeiro_indicie_linha)
-            primeira_execucao = False        
+            primeira_execucao = False   
 
   return CSR(vAA, vJA, vIA, n_linha, n_coluna)
 
@@ -354,7 +354,32 @@ TESTES
 
 erroToleravel = 0.0001
 
-
+#insira o seu caso aqui, mudando o seu erro tolerável, A, b
+'''
+erroToleravel = 0.0001
+A = [
+  [10, -1, 0, 0, 0, 0, 0, 0, 0, 0],
+  [4, 11, 0, 0, 1, 0, 0, 1, 0, 0],
+  [1, 2, 12, 2, 0, 0, 3, 0, 0, 1],
+  [0, 0, 0, 13, 1, 0, 0, 1, 0, 0],
+  [0, 0, 0, 3, 14, 2, 0, -1, 2, 0],
+  [0, 0, 0, 1, 0, 15, 2, 0, -2, 2],
+  [0, 0, 0, 1, 0, 2, 16, 0, 2, 1],
+  [0, 0, 0, 3, 2, 2, 0, 17, 2, 0],
+  [0, 0, 0, 1, 0, 3, 2, 0, 18, 2],
+  [0, 0, 0, 1, 0, 2, 4, 0, 2, 19],
+]
+N = len(A)
+x0 = gera_x_aleatorio(N)
+b = [9, 17, 21, 15, 20, 18, 22, 28, 26, 28]
+A_csr = transforma_matriz_em_csr(A)
+print(A_csr)
+print("\nCom o metodo CGNR:\n")
+A_csr.cgnr(x, b, erroToleravel)
+print("\nCom o metodo CGNE:\n")
+A_csr.cgne(x, b, erroToleravel)
+print("---------------\n")
+'''
 
 
 print("--------")

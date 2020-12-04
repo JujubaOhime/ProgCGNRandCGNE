@@ -1,6 +1,4 @@
-import math
 from random import randint
-from time import sleep
 
 def gera_x_aleatorio(n):
   vetor = []
@@ -48,7 +46,7 @@ def norma_euclidiana(vetor):
     for i in range(len(vetor)):
         soma = soma + (vetor[i] * vetor[i])
     
-    return math.sqrt(soma)
+    return soma ** 0.5
 
 def produto_interno_mesmo_vetor(vetor):
 
@@ -358,7 +356,7 @@ erroToleravel = 0.01
 
 insira o seu caso aqui abaixo e mude o seu erro toleravel, A, b
 caso ao inves do A pronto, desejar inserir o vaa, vja, vii (em forma de listas)
-apenas apague A_csr = transforma_matriz_em_csr(A) e susbtituia por A_csr = CSR(vaa, vja, vii) 
+apenas apague A_csr = transforma_matriz_em_csr(A) e susbtituia por A_csr = CSR(vaa, vja, via) 
 
 """
 

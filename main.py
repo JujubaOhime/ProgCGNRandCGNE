@@ -1,39 +1,40 @@
 import math
 from random import randint
+from time import sleep
 
-def geraXAleatorio(n):
+def gera_x_aleatorio(n):
   vetor = []
   for i in range(n):
     vetor.append((randint(-10, 10)))
+  
   return vetor
 
-def transformaMatrizEmCSR(A):
-  # INDICIES COMECAM EM 0!
+def transforma_matriz_em_csr(A):
   vAA = []
   vJA = []
   vIA = []
   n_linha = len(A)
   n_coluna = len(A[0])
   for i in range(len(A)):
-    first = True
+    primeira_execucao = True
     if A[i][i] != 0:
       vAA.append(A[i][i])
       vJA.append(i)
-      if first == True:
-        firstIndexRow = len(vAA) - 1
-        vIA.append(firstIndexRow)
-        first = False
+      if primeira_execucao == True:
+        primeiro_indicie_linha = len(vAA) - 1
+        vIA.append(primeiro_indicie_linha)
+        primeira_execucao = False
     for j in range(len(A[0])):
       if i != j:
         if A[i][j] != 0:
           vAA.append(A[i][j])
           vJA.append(j)
-          if first == True:
-            firstIndexRow = len(vAA) - 1
-            vIA.append(firstIndexRow)
-            first = False        
+          if primeira_execucao == True:
+            primeiro_indicie_linha = len(vAA) - 1
+            vIA.append(primeiro_indicie_linha)
+            primeira_execucao = False        
 
-  return vAA, vJA, vIA, n_linha, n_coluna
+  return CSR(vAA, vJA, vIA, n_linha, n_coluna)
 
 def norma(vetor):
     soma = 0
@@ -42,36 +43,35 @@ def norma(vetor):
     
     return soma ** 0.5
 
-def normaEuclidiana(vetor):
+def norma_euclidiana(vetor):
     soma = 0
     for i in range(len(vetor)):
         soma = soma + (vetor[i] * vetor[i])
     
     return math.sqrt(soma)
 
-def produtoInternoMesmoValor(vetor):
-    res = norma(vetor) * norma(vetor)
+def produto_interno_mesmo_vetor(vetor):
 
-    return res
+    return norma(vetor) ** 2
 
-def multiplicaoEscalarVetor(vetor, escalar):
+def multiplica_vetor_escalar(vetor, escalar):
     res = []
     for i in range(len(vetor)):
-        res.append(vetor[i]*escalar)
+        res.append(vetor[i] * escalar)
     
     return res
 
-def subtracaoVetores(minuendo, subtraendo):
+def subtrai_vetores(minuendo, subtraendo):
     res = []
     for i in range(len(minuendo)):
         res.append(minuendo[i] - subtraendo[i])
     
     return res
 
-def somaVetores(parcela, outraParcela):
+def soma_vetores(parcela, outra_parcela):
     res = []
     for i in range(len(parcela)):
-        res.append(parcela[i] + outraParcela[i])
+        res.append(parcela[i] + outra_parcela[i])
     
     return res
 
@@ -94,14 +94,13 @@ class CSR:
         linha = 0
         coluna = 0
         for j in range(len(self.via) -1, -1, -1):
-            if self.via[j]<=posicao:
+            if self.via[j] <= posicao:
                 linha = j
                 break
-        
-
         coluna = self.vja[posicao]
         final.append(linha)
         final.append(coluna)
+
         return final
 
     def transposta(self):
@@ -109,15 +108,12 @@ class CSR:
         new_vja = []
         new_via = []
         posicoes = []
-
         for i in range(len(self.vaa)):
             posicoes.append(self.acha_linha_coluna_de_elemento(i)) 
-
         somatorio = 0
         for i in range(self.linhas):
             menor = 0
             for j in range(self.colunas):
-
                 if [j, i] in posicoes:
                     new_vaa.append(self.vaa[posicoes.index([j, i])])
                     new_vja.append(j)
@@ -125,8 +121,8 @@ class CSR:
                         new_via.append(somatorio)
                     somatorio = somatorio + 1
                     menor = menor + 1
-
         resposta = CSR(new_vaa, new_vja, new_via, self.linhas, self.colunas)
+
         return(resposta)
 
     def soma(self, matriz):
@@ -203,7 +199,7 @@ class CSR:
         res = CSR(new_vaa, new_vja, new_via, self.linhas, self.colunas)
         return(res)
 
-    def multiplicaMatriz(self, matriz):
+    def multiplica_matriz(self, matriz):
 
         if(self.colunas != matriz.linhas):
             print("Multiplicacao incompativel")
@@ -266,30 +262,19 @@ class CSR:
 
         return(res)   
 
-    
-
-
-
-    # TODO
     def convergiu(self, Ax, b, iteracao, erro):
         for i in range(len(Ax)):
           if not (Ax[i] <= b[i] + erro and Ax[i] >= b[i] - erro):
             return False
-        #if iteracao + 1 > len(Ax):
-        #  raise Exception("Convergencia nao conseguiu ser atingida em " + str(iteracao) + " iteracoes") 
-        print("Ax: ", Ax)
-        print("b: ", b)
-        print("Feito em {} iterações".format(iteracao))
         return True
 
-    # TODO 
     def cgnr(self, xInicial, b, erro):
         transposta = self.transposta()
 
         xAtual = xInicial
         xAnterior = []
 
-        r = subtracaoVetores(b, self.multiplica(xAtual))
+        r = subtrai_vetores(b, self.multiplica(xAtual))
 
         zAtual = transposta.multiplica(r)
         zAnterior = []
@@ -307,26 +292,31 @@ class CSR:
             zAnterior = zAtual
 
             w = self.multiplica(p)
-            alfa = (norma(zAnterior) ** 2) / (normaEuclidiana(w) ** 2)
-            xAtual = somaVetores(xAnterior, multiplicaoEscalarVetor(p, alfa))
-            r = subtracaoVetores(r, multiplicaoEscalarVetor(w, alfa))
+            alfa = (norma(zAnterior) ** 2) / (norma_euclidiana(w) ** 2)
+            xAtual = soma_vetores(xAnterior, multiplica_vetor_escalar(p, alfa))
+            r = subtrai_vetores(r, multiplica_vetor_escalar(w, alfa))
 
             zAtual = transposta.multiplica(r)
-            beta = (normaEuclidiana(zAtual) ** 2) / (normaEuclidiana(zAnterior) ** 2)
-            p = somaVetores(zAtual, multiplicaoEscalarVetor(p, beta))
+            beta = (norma_euclidiana(zAtual) ** 2) / (norma_euclidiana(zAnterior) ** 2)
+            p = soma_vetores(zAtual, multiplica_vetor_escalar(p, beta))
 
             i += 1
-        print("X = ", xAtual)
+        print("x apos " + str(i) + " iteracoes:")
+        print(xAtual)
+        print("\nAx:")
+        print(self.multiplica(xAtual))
+        print("\nb:")
+        print(b)
+
         return xAtual
 
-    # TODO 
     def cgne(self, xInicial, b, erro):
         transposta = self.transposta()
 
         xAtual = xInicial
         xAnterior = []
 
-        rAtual = subtracaoVetores(b, self.multiplica(xAtual))
+        rAtual = subtrai_vetores(b, self.multiplica(xAtual))
         rAnterior = []
 
         p = transposta.multiplica(rAtual)
@@ -339,20 +329,36 @@ class CSR:
             xAnterior = xAtual
             rAnterior = rAtual
 
-            alfa = produtoInternoMesmoValor(rAtual) / produtoInternoMesmoValor(p)
-            xAtual = somaVetores(xAtual, multiplicaoEscalarVetor(p, alfa))
-            rAtual = subtracaoVetores(rAtual, multiplicaoEscalarVetor(self.multiplica(p), alfa))
-            beta = produtoInternoMesmoValor(rAtual) / produtoInternoMesmoValor(rAnterior)
-            p = somaVetores(transposta.multiplica(rAtual), multiplicaoEscalarVetor(p, beta))
+            alfa = produto_interno_mesmo_vetor(rAtual) / produto_interno_mesmo_vetor(p)
+            xAtual = soma_vetores(xAtual, multiplica_vetor_escalar(p, alfa))
+            rAtual = subtrai_vetores(rAtual, multiplica_vetor_escalar(self.multiplica(p), alfa))
+            beta = produto_interno_mesmo_vetor(rAtual) / produto_interno_mesmo_vetor(rAnterior)
+            p = soma_vetores(transposta.multiplica(rAtual), multiplica_vetor_escalar(p, beta))
 
             i += 1
         
-        print("X = ", xAtual)
+        print("x apos " + str(i) + " iteracoes:")
+        print(xAtual)
+        print("\nAx:")
+        print(self.multiplica(xAtual))
+        print("\nb:")
+        print(b)
+        
         return xAtual
 
-#Exemplo da pagina 11 do pdf Matrizes_Esparsas
-X = geraXAleatorio(10)
+#------------------------------------------------------------------------------------------------------------
 
+"""
+TESTES
+"""
+
+erroToleravel = 0.01
+
+
+print("--------")
+print("Teste 1:\n")
+sleep(1)
+# Exemplo da pagina 11 do pdf Matrizes_Esparsas
 A = [
   [10, -1, 0, 0, 0, 0, 0, 0, 0, 0],
   [4, 11, 0, 0, 1, 0, 0, 1, 0, 0],
@@ -365,30 +371,29 @@ A = [
   [0, 0, 0, 1, 0, 3, 2, 0, 18, 2],
   [0, 0, 0, 1, 0, 2, 4, 0, 2, 19],
 ]
+N = len(A)
+x = gera_x_aleatorio(N)
 b = [9, 17, 21, 15, 20, 18, 22, 28, 26, 28]
 
-erroTolerável = 0.0000001
+A_csr = transforma_matriz_em_csr(A)
 
-ACSR = transformaMatrizEmCSR(A)
-
-csr = CSR(ACSR[0], ACSR[1], ACSR[2], ACSR[3], ACSR[4])
-
-
-# se preferir set os valores dentro de CSR nesta ordem:
-# vAA, vJA, vIA, n_de_linhas_matriz, n_de_colunas_matriz 
-
-print(csr)
-print("\n")
-print("Com o método CGNR: \n")
-csr.cgnr(X, b, erroTolerável)
-print("\n")
-print("Com o método CGNE: \n")
-csr.cgne(X, b, erroTolerável)
+print(A_csr)
+print("\nCom o metodo CGNR:\n")
+A_csr.cgnr(x, b, erroToleravel)
+sleep(1)
+print("\nCom o metodo CGNE:\n")
+A_csr.cgne(x, b, erroToleravel)
+sleep(1)
+print("\nFim do Teste 1.")
+print("---------------\n")
 
 
-'''
-#segundoteste
-X2 = geraXAleatorio(12)
+
+sleep(2)
+print("--------")
+print("Teste 2:\n")
+sleep(1)
+# Exemplo da pagina 4 do pdf Matrizes_Esparsas
 A2 = [
     [10, 5, 6, 7, 0, 0, 0, 0, 0, 0, 0, 0],
     [20, 20, 21, 14, 4, 0, 0, 0, 0, 0, 0, 0],
@@ -403,14 +408,16 @@ A2 = [
     [0, 0, 0, 0, 0, 0, 0, 0, 90, 20, 35, 86],
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 90, 92, 30],
 ]
+N2 = len(A2)
+x2 = gera_x_aleatorio(N2)
 b2 = [28, 79, 314, 273, 240, 390, 339, 330, 331, 204, 231, 212]
-ACSR2 = transformaMatrizEmCSR(A2)
-csr2 = CSR(ACSR2[0], ACSR2[1], ACSR2[2], ACSR2[3], ACSR2[4])
-print(csr2)
-print("\n")
-print("Com o método CGNR: \n")
-csr2.cgnr(X2, b2, erroTolerável)
-print("\n")
-print("Com o método CGNE: \n")
-csr2.cgne(X2, b2, erroTolerável)
-'''
+A_csr2 = transforma_matriz_em_csr(A2)
+
+print(A_csr2)
+print("\nCom o metodo CGNR:\n")
+A_csr2.cgnr(x2, b2, erroToleravel)
+sleep(1)
+print("\nCom o metodo CGNE:\n")
+A_csr2.cgne(x2, b2, erroToleravel)
+print("\nFim do Teste 2.")
+print("---------------")

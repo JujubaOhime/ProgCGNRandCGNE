@@ -356,36 +356,10 @@ erroToleravel = 0.0001
 
 """
 
-insira o seu caso aqui abaixo removendo as tres aspas acima de erro toleravel e mude o seu erro toleravel, A, b
-caso ao inves do A pronto, desejar inserir o vaa, vja, vii (listas)
+insira o seu caso aqui abaixo e mude o seu erro toleravel, A, b
+caso ao inves do A pronto, desejar inserir o vaa, vja, vii (em forma de listas)
 apenas apague A_csr = transforma_matriz_em_csr(A) e susbtituia por A_csr = CSR(vaa, vja, vii) 
 
-"""
-
-"""
-erroToleravel = 0.0001
-A = [
-  [10, -1, 0, 0, 0, 0, 0, 0, 0, 0],
-  [4, 11, 0, 0, 1, 0, 0, 1, 0, 0],
-  [1, 2, 12, 2, 0, 0, 3, 0, 0, 1],
-  [0, 0, 0, 13, 1, 0, 0, 1, 0, 0],
-  [0, 0, 0, 3, 14, 2, 0, -1, 2, 0],
-  [0, 0, 0, 1, 0, 15, 2, 0, -2, 2],
-  [0, 0, 0, 1, 0, 2, 16, 0, 2, 1],
-  [0, 0, 0, 3, 2, 2, 0, 17, 2, 0],
-  [0, 0, 0, 1, 0, 3, 2, 0, 18, 2],
-  [0, 0, 0, 1, 0, 2, 4, 0, 2, 19],
-]
-
-b = [9, 17, 21, 15, 20, 18, 22, 28, 26, 28]
-A_csr = transforma_matriz_em_csr(A)
-x0 = gera_x_aleatorio(A_csr.linhas)
-print(A_csr)
-print("\nCom o metodo CGNR:\n")
-A_csr.cgnr(x0, b, erroToleravel)
-print("\nCom o metodo CGNE:\n")
-A_csr.cgne(x0, b, erroToleravel)
-print("---------------\n")
 """
 
 
@@ -404,12 +378,11 @@ A = [
   [0, 0, 0, 1, 0, 3, 2, 0, 18, 2],
   [0, 0, 0, 1, 0, 2, 4, 0, 2, 19],
 ]
-N = len(A)
-x = gera_x_aleatorio(N)
+
 b = [9, 17, 21, 15, 20, 18, 22, 28, 26, 28]
 
 A_csr = transforma_matriz_em_csr(A)
-
+x = gera_x_aleatorio(A_csr.linhas)
 print(A_csr)
 print("\nCom o metodo CGNR:\n")
 print(A_csr.linhas, A_csr.colunas)
@@ -439,11 +412,10 @@ A2 = [
     [0, 0, 0, 0, 0, 0, 0, 0, 90, 20, 35, 86],
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 90, 92, 30],
 ]
-N2 = len(A2)
-x2 = gera_x_aleatorio(N2)
+
 b2 = [28, 79, 314, 273, 240, 390, 339, 330, 331, 204, 231, 212]
 A_csr2 = transforma_matriz_em_csr(A2)
-
+x2 = gera_x_aleatorio(A_csr2.linhas)
 print(A_csr2)
 print("\nCom o metodo CGNR:\n")
 A_csr2.cgnr(x2, b2, erroToleravel)

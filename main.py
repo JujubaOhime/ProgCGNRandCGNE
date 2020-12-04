@@ -352,7 +352,7 @@ class CSR:
 TESTES
 """
 
-erroToleravel = 0.0001
+erroToleravel = 0.01
 
 """
 

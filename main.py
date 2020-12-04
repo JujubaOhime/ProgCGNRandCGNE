@@ -354,7 +354,7 @@ TESTES
 
 erroToleravel = 0.0001
 
-#insira o seu caso aqui, mudando o seu erro tolerável, A, b
+#insira o seu caso aqui, mudando o seu erro toleravel, A, b
 '''
 erroToleravel = 0.0001
 A = [
